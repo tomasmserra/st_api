@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ST Securities - Apertura de cuenta persona jurídica</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 15mm 10mm;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #555555;
+        }
+
+        .page {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 15px 20px 15px;
+            border: 1px solid #dddddd;
+        }
+
+        .header {
+            margin-bottom: 10px;
+            display: table;
+            width: 100%;
+        }
+
+        .titulo-logo-container {
+            display: table-row;
+            width: 100%;
+        }
+
+        .titulo-form {
+            background: #006098;
+            color: #ffffff;
+            padding: 12px 15px;
+            font-size: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            line-height: 1.1;
+            display: table-cell;
+            vertical-align: middle;
+            width: 50%;
+            white-space: nowrap;
+        }
+
+        .logo-container {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: right;
+            padding-left: 15px;
+        }
+
+        .logo-img {
+            height: 40px;
+            display: inline-block;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: #006098;
+        }
+
+        .logo span {
+            font-weight: 400;
+        }
+
+
+        .seccion {
+            border: 1px solid #dddddd;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .seccion-titulo {
+            background: #9DB2DD;
+            color: #006098;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .seccion-titulo span:first-child {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .seccion-titulo .badge {
+            display: inline-block;
+            position: absolute;
+            right: 12px;
+            top: 8px;
+            vertical-align: middle;
+            background: #ffffff;
+            color: #9DB2DD;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .seccion-body {
+            padding: 8px 10px 10px;
+            background: #ffffff;
+        }
+
+        .row {
+            display: table;
+            width: 100%;
+            margin-bottom: 6px;
+            border-collapse: separate;
+            border-spacing: 10px 5px;
+        }
+
+        .row .field {
+            display: table-cell;
+            font-size: 12px;
+            vertical-align: top;
+            height: 100%;
+        }
+
+        .row.cols-2 .field {
+            width: 58.33%;
+        }
+
+        .row.cols-2 .field:last-child {
+            width: 41.67%;
+        }
+
+        .row.cols-3 .field {
+            width: 33.33%;
+        }
+
+        .row.cols-4 .field {
+            width: 25%;
+        }
+
+        .row.cols-4 .field:first-child {
+            width: 30%;
+        }
+
+        .row.cols-4 .field:nth-child(4) {
+            width: 20%;
+        }
+
+        .row.cols-5 .field {
+            width: 20%;
+        }
+
+        .row.cols-8 .field {
+            width: 12.5%;
+        }
+
+        /* Para campos fuera de .row */
+        .field {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .row .field.span-3 {
+            width: 75%;
+        }
+
+        .field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 10px;
+            line-height: 1.1;
+        }
+
+        .field input,
+        .field .input-value,
+        .field select,
+        .field textarea {
+            border: 1px solid #dddddd;
+            padding: 6px 8px;
+            font-size: 12px;
+            font-family: inherit;
+            background: #f1f3f6;
+            width: 100%;
+            display: block;
+            min-height: 28px;
+            height: 28px;
+            box-sizing: border-box;
+            line-height: 16px;
+        }
+
+        .field .input-value {
+            /* Estilo para divs que reemplazan inputs */
+            color: #000000;
+            vertical-align: middle;
+        }
+
+        .field textarea {
+            min-height: 60px;
+        }
+
+        .checkbox-group {
+            display: inline-block;
+            font-size: 12px;
+            margin-top: 4px;
+            vertical-align: middle;
+        }
+
+        .checkbox-group label {
+            display: inline-block;
+            font-weight: 500;
+            margin-right: 12px;
+            vertical-align: middle;
+        }
+
+
+        .nota-peq {
+            font-size: 10px;
+            color: #777777;
+            margin-top: 2px;
+        }
+
+        /* Footer firmas */
+        .footer-firmas {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 10px;
+            color: #666666;
+        }
+
+        .firmas-row {
+            display: table;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+
+        .firma-col {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .firma-linea {
+            width: 25%;
+            height: 1px;
+            background: #9DB2DD;
+            margin: 0 auto 4px;
+        }
+
+        .firma-titulo {
+            font-weight: 700;
+            color: #006098;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- Encabezado -->
+        <header class="header">
+            <div class="titulo-logo-container">
+                <div class="titulo-form">
+                    Apertura de cuenta persona jurídica
+                </div>
+                <div class="logo-container">
+                    <img class="logo-img" src="logo.png" alt="ST Securities" />
+                </div>
+            </div>
+        </header>
+
+        <!-- DATOS FIRMANTE -->
+        <section class="seccion">
+            <div class="seccion-titulo">
+                <span>Datos Firmante</span>
+                <span class="badge">{mesAño}</span>
+            </div>
+            <div class="seccion-body">
+
+                <!-- fila 1 -->
+                <div class="row cols-4">
+                    <div class="field">
+                        <label for="t1_nombre">Nombre/s y Apellido</label>
+                        <div class="input-value">{t1_nombre}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_dni">DNI / LE / LC</label>
+                        <div class="input-value">{t1_dni}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_cuil">CUIL / CUIT</label>
+                        <div class="input-value">{t1_cuil}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_estadoCivil">Estado civil</label>
+                        <div class="input-value">{t1_estadoCivil}</div>
+                    </div>
+                </div>
+
+                <!-- fila 2 -->
+                <div class="row cols-3">
+                    <div class="field">
+                        <label for="t1_nacionalidad">Nacionalidad</label>
+                        <div class="input-value">{t1_nacionalidad}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_fechaNac">Fecha de nacimiento</label>
+                        <div class="input-value">{t1_fechaNac}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_lugarNac">Lugar de nacimiento</label>
+                        <div class="input-value">{t1_lugarNac}</div>
+                    </div>
+                </div>
+
+                <!-- fila 3 -->
+                <div class="row cols-3">
+                    <div class="field">
+                        <label for="t1_celular">Celular</label>
+                        <div class="input-value">{t1_celular}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_email">E-mail</label>
+                        <div class="input-value">{t1_email}</div>
+                    </div>
+                </div>
+
+                <!-- fila domicilio -->
+                <div class="row cols-8">
+                    <div class="field" style="width: 62.5%;">
+                        <label for="t1_calle">Calle</label>
+                        <div class="input-value">{t1_calle}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_nro">Nro</label>
+                        <div class="input-value">{t1_nro}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_piso">Piso</label>
+                        <div class="input-value">{t1_piso}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_dpto">Dpto</label>
+                        <div class="input-value">{t1_dpto}</div>
+                    </div>
+                </div>
+                <div class="row cols-4">
+                    <div class="field">
+                        <label for="t1_pais">País</label>
+                        <div class="input-value">{t1_pais}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_provincia">Provincia</label>
+                        <div class="input-value">{t1_provincia}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_localidad">Localidad</label>
+                        <div class="input-value">{t1_localidad}</div>
+                    </div>
+                    <div class="field">
+                        <label for="t1_cp">Cód. postal</label>
+                        <div class="input-value">{t1_cp}</div>
+                    </div>
+                </div>
+
+                <!-- PEP -->
+                <div class="field" style="margin-top: 8px;">
+                    <label>Soy Persona Expuesta Políticamente*</label>
+                    <div class="row cols-4">
+                        <div class="checkbox-group">
+                            <span>{t1_pep_respuesta}</span>
+                        </div>
+                        <div class="field span-3" style="margin-top:4px; width: 75%;">
+                            <label for="t1_pep_motivo">En caso afirmativo indicar el motivo</label>
+                            <div class="input-value">{t1_pep_motivo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- US Person -->
+                <div class="field" style="margin-top: 8px;">
+                    <label>Soy Persona U.S. Person*²</label>
+                    <div class="row cols-4">
+                        <div class="checkbox-group">
+                            <span>{t1_usperson_respuesta}</span>
+                        </div>
+                        <div class="field span-3" style="margin-top:4px; width: 75%;">
+                            <label for="t1_us_motivo">En caso afirmativo indicar el motivo</label>
+                            <div class="input-value">{t1_us_motivo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sujeto Obligado -->
+                <div class="field" style="margin-top: 8px;">
+                    <label>Soy Sujeto Obligado*³</label>
+                    <div class="row cols-4">
+                        <div class="checkbox-group">
+                            <span>{t1_sujetoObligado_respuesta}</span>
+                        </div>
+                        <div class="field span-3" style="margin-top:4px; width: 75%;">
+                            <label for="t1_sujeto_motivo">En caso afirmativo indicar el motivo</label>
+                            <div class="input-value">{t1_sujeto_motivo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="nota-peq">
+                    * Campos sujetos a normativa de prevención de lavado de activos y financiación del terrorismo.
+                </p>
+
+            </div>
+        </section>
+
+        <!-- Footer firmas -->
+        <footer class="footer-firmas">
+            <div class="firmas-row">
+                <div class="firma-col">
+                    <div class="firma-linea"></div>
+                    <div class="firma-titulo">Firma y aclaración</div>
+                </div>
+            </div>
+            <div>
+                Agente de Liquidación y Compensación y Agente de Negociación Propio registrado bajo el número 524 ante
+                la CNV<br />
+                Agente de Colocación y Distribución Integral de Fondos Comunes de Inversión registrado bajo el número
+                133 ACyDI ante la CNV<br />
+                Agente de Colocación y Distribución de Fondos Comunes de Inversión registrado bajo el número 62 ACyD
+                ante la CNV
+            </div>
+        </footer>
+
+    </div>
+</body>
+
+</html>
+

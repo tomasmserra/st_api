@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenida ST Securities</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #000;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background-color: #ffffff;
+      padding: 20px;
+    }
+
+    .header img {
+      width: 100%;
+      height: auto;
+    }
+
+    .content {
+      padding: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .negrita {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="data:image/png;base64,#{base64}" alt="ST Securities">
+    </div>
+
+    <div class="content">
+      <p>#{saludo} #{cliente}</p>
+      
+      <p>Nos es grato informarle/s que sus datos para ingresar en nuestra página web <a href="https://vb-stsecurities.aunesa.com/auth/signin">(Ingresar)</a> son:
+      </p>
+      
+      <p><span class="negrita">Usuario: </span>#{usuario}</p>
+      <p><span class="negrita">Contraseña: </span>#{clave}</p>
+
+      <p>Saludos cordiales,</p>
+
+      <p>Equipo ST Securities SAU</p>
+    </div>
+  </div>
+</body>
+</html>

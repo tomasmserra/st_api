@@ -1,0 +1,97 @@
+spring:
+  application:
+    name: st-api
+  
+  datasource:
+    url: jdbc:postgresql://dfs-db:5432/dfs
+    username: dfs
+    password: c6CvocL7MJYiky6
+    driver-class-name: org.postgresql.Driver
+    
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: false
+        
+  security:
+    user:
+      name: admin
+      password: admin123
+      
+  mail:
+    enabled: true
+    from: registro@stsecurities.com.ar
+    host: in-v3.mailjet.com
+    port: 465
+    username: 21ce77a41e93f1cffd51eb7b9ce93dcf
+    password: 117ffbb57ed4db8b8c03cc048598b7e1
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            enable: true
+  
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 50MB
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+logging:
+  level:
+    ar.com.st: DEBUG
+    org.springframework.web: DEBUG
+    org.hibernate.SQL: WARN
+    org.hibernate.type.descriptor.sql.BasicBinder: WARN
+    org.hibernate: WARN
+    org.hibernate.engine.jdbc: WARN
+    org.hibernate.engine.jdbc.mutation: WARN
+    org.hibernate.engine.jdbc.spi: WARN
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+# Configuración JWT
+app:
+  jwt:
+    secret: mySecretKey123456789012345678901234567890123456789012345678901234567890
+    expiration: 86400000 # 24 horas en milisegundos
+
+  # Configuración del servicio de firma digital (Signatura)
+  signatura:
+    authorization-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3NTI2NzgzODEsImp0aSI6ImtmSjNwaCtvWXVoOGwvRHFKbFhDVUVCc0U5cEZsVjN1bUE1d3dWbjhHNTg9Iiwic3ViIjoiU1RTZWN1cml0aWVzIn0.4FaI5cGL654xqh8iR8l9woqUCjDbogqsWRlZDs3-v8U
+    crear-documento-url: https://connect.signatura.co/api/v2/documents/create
+    obtener-documento-url: https://connect.signatura.co/api/v2/documents/{id}
+    cancelar-documento-url: https://connect.signatura.co/api/v2/documents/{id}/cancel
+    reenviar-firma-url: https://connect.signatura.co/api/v2/signatures/{id}/resend-invitation
+    obtener-pdf-firmado-url: https://connect.signatura.co/api/v2/documents/{id}/download/document
+    certificado-firma-url: https://connect.signatura.co/api/v2/documents/{id}/download/pdf-certificate
+    timeout: 5000 # Timeout en milisegundos para las peticiones al servicio de firma digital
+  
+  # Configuración del servicio AUNESA
+  aunesa:
+    login:
+      url: https://deal.aunesa.com/Irmo/api/login
+      client-id: ws-apercta-deal
+      username: ws-apercta-deal
+      password: dealfs2022!
+    cuenta:
+      url: https://deal.aunesa.com/Irmo/api/cuentas
+    provincias:
+      url: https://deal.aunesa.com/Irmo/api/provincias
+    localidades:
+      url: https://deal.aunesa.com/Irmo/api/localidades
+    timeout: 5000

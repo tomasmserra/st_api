@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ST Securities - Apertura de cuenta persona física</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 15mm 10mm;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #555555;
+        }
+
+        .page {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 15px 20px 15px;
+            border: 1px solid #dddddd;
+        }
+
+        .header {
+            margin-bottom: 10px;
+            display: table;
+            width: 100%;
+        }
+
+        .titulo-logo-container {
+            display: table-row;
+            width: 100%;
+        }
+
+        .titulo-form {
+            background: #006098;
+            color: #ffffff;
+            padding: 12px 15px;
+            font-size: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            line-height: 1.1;
+            display: table-cell;
+            vertical-align: middle;
+            width: 50%;
+            white-space: nowrap;
+        }
+
+        .logo-container {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: right;
+            padding-left: 15px;
+        }
+
+        .logo-img {
+            height: 40px;
+            display: inline-block;
+        }
+
+        .seccion {
+            border: 1px solid #dddddd;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .seccion-titulo {
+            background: #9DB2DD;
+            color: #006098;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .seccion-titulo span:first-child {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .seccion-titulo .badge {
+            display: inline-block;
+            position: absolute;
+            right: 12px;
+            top: 8px;
+            vertical-align: middle;
+            background: #ffffff;
+            color: #9DB2DD;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .seccion-body {
+            padding: 8px 10px 10px;
+            background: #ffffff;
+        }
+
+        .field {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 10px;
+            line-height: 1.1;
+        }
+
+        .field .input-value {
+            border: 1px solid #dddddd;
+            padding: 8px 10px;
+            font-size: 12px;
+            font-family: inherit;
+            background: #f1f3f6;
+            width: 100%;
+            display: block;
+            min-height: 28px;
+            height: auto;
+            box-sizing: border-box;
+            line-height: 16px;
+            color: #000000;
+            vertical-align: middle;
+            word-wrap: break-word;
+        }
+
+        .field .respuesta-value {
+            border: 1px solid #dddddd;
+            padding: 8px 10px;
+            font-size: 12px;
+            font-family: inherit;
+            background: #f1f3f6;
+            width: 100%;
+            display: block;
+            min-height: 28px;
+            height: auto;
+            box-sizing: border-box;
+            line-height: 16px;
+            color: #000000;
+            vertical-align: middle;
+            margin-top: 4px;
+        }
+
+        .tipo-perfil-container {
+            margin-top: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .tipo-perfil-badge {
+            display: inline-block;
+            background: #006098;
+            color: #ffffff;
+            padding: 12px 30px;
+            font-size: 24px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+        }
+
+        /* Footer firmas */
+        .footer-firmas {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 10px;
+            color: #666666;
+        }
+
+        .firmas-row {
+            display: table;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+
+        .firma-col {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .firma-linea {
+            width: 25%;
+            height: 1px;
+            background: #9DB2DD;
+            margin: 0 auto 4px;
+        }
+
+        .firma-titulo {
+            font-weight: 700;
+            color: #006098;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- Encabezado -->
+        <header class="header">
+            <div class="titulo-logo-container">
+                <div class="titulo-form">
+                    Apertura de cuenta persona física
+                </div>
+                <div class="logo-container">
+                    <img class="logo-img" src="logo.png" alt="ST Securities" />
+                </div>
+            </div>
+        </header>
+
+        <!-- PERFIL DE INVERSOR -->
+        <section class="seccion">
+            <div class="seccion-titulo">
+                <span>Perfil de inversor</span>
+                <span class="badge">{mesAño}</span>
+            </div>
+            <div class="seccion-body">
+                {preguntas_respuestas}
+            </div>
+        </section>
+
+        <!-- Tipo de perfil -->
+        <div class="tipo-perfil-container">
+            <div class="tipo-perfil-badge">
+                Perfil: {tipoPerfil}
+            </div>
+        </div>
+
+        <!-- Footer firmas -->
+        <footer class="footer-firmas">
+            <div class="firmas-row">
+                <div class="firma-col">
+                    <div class="firma-linea"></div>
+                    <div class="firma-titulo">Firma y aclaración</div>
+                </div>
+            </div>
+            <div>
+                Agente de Liquidación y Compensación y Agente de Negociación Propio registrado bajo el número 524 ante
+                la CNV<br />
+                Agente de Colocación y Distribución Integral de Fondos Comunes de Inversión registrado bajo el número
+                133 ACyDI ante la CNV<br />
+                Agente de Colocación y Distribución de Fondos Comunes de Inversión registrado bajo el número 62 ACyD
+                ante la CNV
+            </div>
+        </footer>
+
+    </div>
+</body>
+
+</html>
+

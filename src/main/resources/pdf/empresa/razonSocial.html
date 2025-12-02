@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ST Securities - Apertura de cuenta persona jurídica</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        @page {
+            size: A4;
+            margin: 15mm 10mm;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #555555;
+        }
+
+        .page {
+            max-width: 100%;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 15px 20px 15px;
+            border: 1px solid #dddddd;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            height: 50px;
+            display: inline-block;
+        }
+
+        .titulo-form {
+            background: #006098;
+            color: #ffffff;
+            padding: 12px 15px;
+            font-size: 22px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            line-height: 1.1;
+        }
+
+        .seccion {
+            border: 1px solid #dddddd;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .seccion-titulo {
+            background: #9DB2DD;
+            color: #006098;
+            padding: 8px 12px;
+            font-weight: bold;
+            font-size: 18px;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-transform: uppercase;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .seccion-titulo span:first-child {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .seccion-titulo .badge {
+            display: inline-block;
+            position: absolute;
+            right: 12px;
+            top: 8px;
+            vertical-align: middle;
+            background: #ffffff;
+            color: #9DB2DD;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .seccion-body {
+            padding: 8px 10px 10px;
+            background: #ffffff;
+        }
+
+        .row {
+            display: table;
+            width: 100%;
+            margin-bottom: 6px;
+            border-collapse: separate;
+            border-spacing: 10px 5px;
+        }
+
+        .row .field {
+            display: table-cell;
+            font-size: 12px;
+            vertical-align: top;
+            height: 100%;
+        }
+
+        .row.cols-2 .field {
+            width: 58.33%;
+        }
+
+        .row.cols-2 .field:last-child {
+            width: 41.67%;
+        }
+
+        .row.cols-3 .field {
+            width: 33.33%;
+        }
+
+        .row.cols-4 .field {
+            width: 25%;
+        }
+
+        .row.cols-5 .field {
+            width: 20%;
+        }
+
+        .field {
+            display: block;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+
+        .field label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 3px;
+            font-size: 10px;
+            line-height: 1.1;
+        }
+
+        .field input,
+        .field .input-value,
+        .field select,
+        .field textarea {
+            border: 1px solid #dddddd;
+            padding: 6px 8px;
+            font-size: 12px;
+            font-family: inherit;
+            background: #f1f3f6;
+            width: 100%;
+            display: block;
+            min-height: 28px;
+            height: 28px;
+            box-sizing: border-box;
+            line-height: 16px;
+        }
+
+        .field .input-value {
+            color: #000000;
+            vertical-align: middle;
+        }
+
+        .field textarea {
+            min-height: 60px;
+            height: auto;
+        }
+
+        .checkbox-group {
+            display: inline-block;
+            font-size: 12px;
+            margin-top: 4px;
+            vertical-align: middle;
+        }
+
+        .checkbox-group label {
+            display: inline-block;
+            font-weight: 500;
+            margin-right: 12px;
+            vertical-align: middle;
+        }
+
+        .nota-peq {
+            font-size: 10px;
+            color: #777777;
+            margin-top: 2px;
+        }
+
+        /* Footer firmas */
+        .footer-firmas {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 10px;
+            color: #666666;
+        }
+
+        .firmas-row {
+            display: table;
+            width: 100%;
+            margin-bottom: 6px;
+        }
+
+        .firma-col {
+            display: table-cell;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .firma-linea {
+            width: 25%;
+            height: 1px;
+            background: #9DB2DD;
+            margin: 0 auto 4px;
+        }
+
+        .firma-titulo {
+            font-weight: 700;
+            color: #006098;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page">
+
+        <!-- Encabezado -->
+        <header class="header">
+            <img class="logo-img" src="logo.png" alt="ST Securities" />
+        </header>
+
+        <!-- Título principal -->
+        <div class="titulo-form">
+            Apertura de cuenta persona jurídica
+        </div>
+
+        <!-- DATOS PERSONALES CUENTA -->
+        <section class="seccion">
+            <div class="seccion-titulo">
+                <span>Anexo de datos</span>
+                <span class="badge">{mesAño}</span>
+            </div>
+            <div class="seccion-body">
+                <div class="row cols-4">
+                    <div class="field">
+                        <label for="denominacionCuenta">Denominación</label>
+                        <div class="input-value">{denominacionCuenta}</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="domicilioCuenta">Domicilio Cuenta Comitente</label>
+                        <div class="input-value">{domicilioCuenta}</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="numeroCuenta">Número de cuenta</label>
+                        <div class="input-value">{numeroCuenta}</div>
+                    </div>
+
+                    <div class="field">
+                        <label for="fechaApertura">Fecha de apertura</label>
+                        <div class="input-value">{fechaApertura}</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- DATOS REGISTRO COMITENTE -->
+        <section class="seccion">
+            <div class="seccion-titulo">
+                <span>Datos registro comitente</span>
+            </div>
+            <div class="seccion-body">
+
+                <!-- Denominación / Razón social -->
+                <div class="field">
+                    <label for="denominacion">Denominación / Razón social</label>
+                    <div class="input-value">{denominacion}</div>
+                </div>
+
+                <!-- fila domicilio -->
+                <div class="row cols-8">
+                    <div class="field" style="width: 62.5%;">
+                        <label for="calle">Calle</label>
+                        <div class="input-value">{calle}</div>
+                    </div>
+                    <div class="field">
+                        <label for="nro">Nro</label>
+                        <div class="input-value">{nro}</div>
+                    </div>
+                    <div class="field">
+                        <label for="piso">Piso</label>
+                        <div class="input-value">{piso}</div>
+                    </div>
+                    <div class="field">
+                        <label for="dpto">Dpto</label>
+                        <div class="input-value">{dpto}</div>
+                    </div>
+                </div>
+                <div class="row cols-4">
+                    <div class="field">
+                        <label for="pais">País</label>
+                        <div class="input-value">{pais}</div>
+                    </div>
+                    <div class="field">
+                        <label for="provincia">Provincia</label>
+                        <div class="input-value">{provincia}</div>
+                    </div>
+                    <div class="field">
+                        <label for="localidad">Localidad</label>
+                        <div class="input-value">{localidad}</div>
+                    </div>
+                    <div class="field">
+                        <label for="cp">Cód. postal</label>
+                        <div class="input-value">{cp}</div>
+                    </div>
+                </div>
+
+                <!-- Teléfono, Celular, E-mail -->
+                <div class="row cols-3">
+                    <div class="field">
+                        <label for="telefono">Teléfono</label>
+                        <div class="input-value">{telefono}</div>
+                    </div>
+                    <div class="field">
+                        <label for="celular">Celular</label>
+                        <div class="input-value">{celular}</div>
+                    </div>
+                    <div class="field">
+                        <label for="email">E-mail</label>
+                        <div class="input-value">{email}</div>
+                    </div>
+                </div>
+
+                <!-- Fecha de constitución, Acta de constitución, Tipo y N° de Inscripción, Lugar -->
+                <div class="row cols-4">
+                    <div class="field">
+                        <label for="fechaConstitucion">Fecha de constitución</label>
+                        <div class="input-value">{fechaConstitucion}</div>
+                    </div>
+                    <div class="field">
+                        <label for="numeroActa">Acta de constitución</label>
+                        <div class="input-value">{numeroActa}</div>
+                    </div>
+                    <div class="field">
+                        <label for="tipoNumeroInscripcion">Tipo y N° de Inscripción</label>
+                        <div class="input-value">{tipoNumeroInscripcion}</div>
+                    </div>
+                    <div class="field">
+                        <label for="lugarRegistro">Lugar</label>
+                        <div class="input-value">{lugarRegistro}</div>
+                    </div>
+                </div>
+
+                <!-- Folio, Libro, Tomo, Uso de firma, CUIT -->
+                <div class="row cols-5">
+                    <div class="field">
+                        <label for="folio">Folio</label>
+                        <div class="input-value">{folio}</div>
+                    </div>
+                    <div class="field">
+                        <label for="libro">Libro</label>
+                        <div class="input-value">{libro}</div>
+                    </div>
+                    <div class="field">
+                        <label for="tomo">Tomo</label>
+                        <div class="input-value">{tomo}</div>
+                    </div>
+                    <div class="field">
+                        <label for="usoFirma">Uso de firma</label>
+                        <div class="input-value">{usoFirma}</div>
+                    </div>
+                    <div class="field">
+                        <label for="cuit">CUIT</label>
+                        <div class="input-value">{cuit}</div>
+                    </div>
+                </div>
+
+                <!-- Aclaraciones s/uso de firma -->
+                <div class="field">
+                    <label for="aclaracionesFirma">Aclaraciones s/uso de firma</label>
+                    <div class="input-value">{aclaracionesFirma}</div>
+                </div>
+
+                <!-- UIF -->
+                <div class="field" style="margin-top: 8px;">
+                    <label>Declaro ante UIF*</label>
+                    <div class="row cols-4">
+                        <div class="checkbox-group">
+                            <span>{uif_respuesta}</span>
+                        </div>
+                        <div class="field span-3" style="margin-top:4px; width: 75%;">
+                            <label for="uif_motivo">En caso afirmativo indicar el motivo</label>
+                            <div class="input-value">{uif_motivo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FATCA -->
+                <div class="field" style="margin-top: 8px;">
+                    <label>Declaro FATCA*²</label>
+                    <div class="row cols-4">
+                        <div class="checkbox-group">
+                            <span>{fatca_respuesta}</span>
+                        </div>
+                        <div class="field span-3" style="margin-top:4px; width: 75%;">
+                            <label for="fatca_motivo">En caso afirmativo indicar el motivo</label>
+                            <div class="input-value">{fatca_motivo}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="nota-peq">
+                    * Campos sujetos a normativa de prevención de lavado de activos y financiación del terrorismo.
+                </p>
+
+            </div>
+        </section>
+
+        <!-- Footer firmas -->
+        <footer class="footer-firmas">
+            <div class="firmas-row">
+                <div class="firma-col">
+                    <div class="firma-linea"></div>
+                    <div class="firma-titulo">Firma y aclaración</div>
+                </div>
+            </div>
+            <div>
+                Agente de Liquidación y Compensación y Agente de Negociación Propio registrado bajo el número 524 ante
+                la CNV<br />
+                Agente de Colocación y Distribución Integral de Fondos Comunes de Inversión registrado bajo el número
+                133 ACyDI ante la CNV<br />
+                Agente de Colocación y Distribución de Fondos Comunes de Inversión registrado bajo el número 62 ACyD
+                ante la CNV
+            </div>
+        </footer>
+
+    </div>
+</body>
+
+</html>
+
