@@ -1,4 +1,4 @@
-# DFS API - Sistema de Apertura de Cuentas
+# ST API - Sistema de Apertura de Cuentas
 
 API REST para el sistema de apertura de cuentas de DFS, migrada desde la aplicación Vaadin original.
 
