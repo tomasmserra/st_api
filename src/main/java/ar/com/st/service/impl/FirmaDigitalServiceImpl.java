@@ -42,6 +42,13 @@ public class FirmaDigitalServiceImpl implements FirmaDigitalService {
             // Generar PDF de la solicitud
             byte[] pdfBytes = solicitudPdfService.generarPdf(solicitud);
             
+            if (pdfBytes == null || pdfBytes.length == 0) {
+                log.error("Error: El PDF generado está vacío o es null para la solicitud {}", solicitud.getId());
+                return false;
+            }
+            
+            log.info("PDF generado exitosamente para solicitud {}. Tamaño: {} bytes", solicitud.getId(), pdfBytes.length);
+            
             // Convertir PDF a Base64
             String pdfBase64 = Base64.getEncoder().encodeToString(pdfBytes);
             
@@ -54,6 +61,14 @@ public class FirmaDigitalServiceImpl implements FirmaDigitalService {
             } else {
                 titulo = "Solicitud de Apertura de Cuenta - " + solicitud.getId();
             }
+            
+            if (titulo == null || titulo.trim().isEmpty()) {
+                log.error("Error: El título generado está vacío para la solicitud {}", solicitud.getId());
+                titulo = "Solicitud de Apertura de Cuenta - " + solicitud.getId();
+            }
+            
+            log.info("Enviando documento a Signatura. Título: '{}', Tamaño Base64: {} caracteres", 
+                    titulo, pdfBase64.length());
 
             // Crear documento en el servicio de firma digital
             String idFirmaDigital = signaturaService.crearDocumento(titulo, emails, pdfBase64);

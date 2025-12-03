@@ -4,6 +4,7 @@ import ar.com.st.dto.firmaDigital.EstadoDocumentoDTO;
 import ar.com.st.dto.firmaDigital.EstadoFirmaDTO;
 import ar.com.st.service.SignaturaService;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,6 +30,7 @@ import java.util.Map;
 public class SignaturaServiceImpl implements SignaturaService {
 
     private final RestTemplate restTemplate;
+    private final ObjectMapper objectMapper;
     
     @Value("${app.signatura.crear-documento-url:}")
     private String crearDocumentoUrl;
@@ -54,8 +56,9 @@ public class SignaturaServiceImpl implements SignaturaService {
     @Value("${app.signatura.timeout:5000}")
     private int timeout;
 
-    public SignaturaServiceImpl(RestTemplate restTemplate) {
+    public SignaturaServiceImpl(RestTemplate restTemplate, ObjectMapper objectMapper) {
         this.restTemplate = restTemplate;
+        this.objectMapper = objectMapper;
     }
 
     @Override
@@ -70,19 +73,56 @@ public class SignaturaServiceImpl implements SignaturaService {
             return null;
         }
 
+        // Validar parámetros requeridos
+        if (titulo == null || titulo.trim().isEmpty()) {
+            log.error("El título del documento es requerido y no puede estar vacío");
+            return null;
+        }
+        
+        if (contenidoPdfBase64 == null || contenidoPdfBase64.trim().isEmpty()) {
+            log.error("El contenido del PDF en Base64 es requerido y no puede estar vacío");
+            return null;
+        }
+        
+        if (emails == null || emails.isEmpty()) {
+            log.error("La lista de emails es requerida y no puede estar vacía");
+            return null;
+        }
+
         try {
+            // Construir el JSON manualmente como Map (similar a AunesaServiceImpl)
+            Map<String, Object> requestBody = new java.util.HashMap<>();
+            requestBody.put("title", titulo.trim());
+            requestBody.put("fashion", "SE");
+            requestBody.put("selected_emails", emails.stream().distinct().toList());
+            requestBody.put("validations", Arrays.asList("EM", "AF"));
+            requestBody.put("file_content", contenidoPdfBase64.trim());
+            
+            log.debug("Creando documento con título: '{}', emails: {}, tamaño Base64: {} caracteres", 
+                    titulo, emails.size(), contenidoPdfBase64.length());
+            
+            // Serializar a JSON String manualmente
+            String requestJson;
+            if (objectMapper != null) {
+                try {
+                    requestJson = objectMapper.writeValueAsString(requestBody);
+                    log.debug("Request JSON a enviar (primeros 500 chars): {}", 
+                            requestJson.length() > 500 ? requestJson.substring(0, 500) + "..." : requestJson);
+                } catch (Exception e) {
+                    log.error("Error al serializar el request a JSON: {}", e.getMessage());
+                    return null;
+                }
+            } else {
+                log.error("ObjectMapper no está disponible para serializar el request");
+                return null;
+            }
+
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
+            headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
             headers.set("Authorization", "Bearer " + authorizationToken);
 
-            CrearDocumentoRequest request = new CrearDocumentoRequest();
-            request.setTitle(titulo);
-            request.setFashion("SE");
-            request.setSelected_emails(emails.stream().distinct().toList());
-            request.setValidations(Arrays.asList("EM", "AF"));
-            request.setFile_content(contenidoPdfBase64);
-
-            HttpEntity<CrearDocumentoRequest> entity = new HttpEntity<>(request, headers);
+            HttpEntity<String> entity = new HttpEntity<>(requestJson, headers);
 
             ResponseEntity<CrearDocumentoResponse> response = restTemplate.exchange(
                     crearDocumentoUrl,
@@ -90,6 +130,8 @@ public class SignaturaServiceImpl implements SignaturaService {
                     entity,
                     CrearDocumentoResponse.class
             );
+            
+            log.debug("Respuesta recibida - Status: {}, Body: {}", response.getStatusCode(), response.getBody());
 
             if (response.getStatusCode() == HttpStatus.CREATED || response.getStatusCode() == HttpStatus.OK) {
                 CrearDocumentoResponse responseBody = response.getBody();
@@ -104,17 +146,37 @@ public class SignaturaServiceImpl implements SignaturaService {
             return null;
 
         } catch (Exception ex) {
-            log.error("Error al crear documento de firma digital: {}", ex.getMessage(), ex);
+            // Loggear detalles del error para debugging
+            if (ex instanceof org.springframework.web.client.HttpClientErrorException httpEx) {
+                log.error("Error HTTP al crear documento de firma digital. Status: {}, Response: {}", 
+                        httpEx.getStatusCode(), httpEx.getResponseBodyAsString());
+                try {
+                    log.debug("Request que se intentó enviar - Título: '{}', Emails: {}, Tamaño Base64: {} caracteres", 
+                            titulo, emails, contenidoPdfBase64 != null ? contenidoPdfBase64.length() : 0);
+                } catch (Exception logEx) {
+                    // Ignorar errores de logging
+                }
+            } else {
+                log.error("Error al crear documento de firma digital: {}", ex.getMessage(), ex);
+            }
             return null;
         }
     }
 
     @Data
     private static class CrearDocumentoRequest {
+        @JsonProperty("title")
         private String title;
+        
+        @JsonProperty("fashion")
         private String fashion;
+        
+        @JsonProperty("selected_emails")
         private List<String> selected_emails;
+        
+        @JsonProperty("validations")
         private List<String> validations;
+        
         @JsonProperty("file_content")
         private String file_content;
     }
