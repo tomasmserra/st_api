@@ -36,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -1164,6 +1165,10 @@ public class EmpresaAperturaController {
             if (perfilInversor == null) {
                 perfilInversor = new ar.com.st.entity.PerfilInversor();
                 empresa.setPerfilInversor(perfilInversor);
+            }
+
+            if(StringUtils.isNotBlank(dto.getTipoPerfil())) {
+                perfilInversor.setTipo(ar.com.st.entity.PerfilInversor.Tipo.valueOf(dto.getTipoPerfil()));
             }
 
             // Agregar nuevas respuestas
