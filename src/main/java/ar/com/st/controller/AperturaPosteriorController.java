@@ -198,7 +198,7 @@ public class AperturaPosteriorController {
         }
         
         Solicitud solicitud = solicitudOpt.get();
-        if (solicitud.getTipo() != Solicitud.Tipo.INDIVIDUO) {
+        if (solicitud.getTipo() == Solicitud.Tipo.INDIVIDUO) {
             return ResponseEntity.badRequest().build();
         }
 
