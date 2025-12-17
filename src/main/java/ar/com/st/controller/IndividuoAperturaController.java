@@ -214,6 +214,8 @@ public class IndividuoAperturaController {
             dto.setDniReversoArchivoId(persona.getDniReverso() != null ? persona.getDniReverso().getId() : null);
             if (persona.getConyuge() != null) {
                 ConyugeDTO conyugeDTO = new ConyugeDTO();
+                conyugeDTO.setNombres(persona.getConyuge().getNombres());
+                conyugeDTO.setApellidos(persona.getConyuge().getApellidos());
                 conyugeDTO.setTipoID(persona.getConyuge().getTipoID());
                 conyugeDTO.setIdNumero(persona.getConyuge().getIdNumero());
                 conyugeDTO.setTipoClaveFiscal(persona.getConyuge().getTipoClaveFiscal());
@@ -273,6 +275,8 @@ public class IndividuoAperturaController {
                 if (persona.getConyuge() == null) {
                     persona.setConyuge(new Conyuge());
                 }
+                persona.getConyuge().setNombres(dto.getConyuge().getNombres());
+                persona.getConyuge().setApellidos(dto.getConyuge().getApellidos());
                 persona.getConyuge().setTipoID(dto.getConyuge().getTipoID());
                 persona.getConyuge().setIdNumero(dto.getConyuge().getIdNumero());
                 persona.getConyuge().setTipoClaveFiscal(dto.getConyuge().getTipoClaveFiscal());
